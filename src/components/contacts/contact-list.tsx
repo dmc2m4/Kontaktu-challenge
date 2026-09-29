@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchContactList } from "@/lib/contacts/contact-client";
@@ -47,9 +48,15 @@ export default function ContactList() {
   return (
     <div className="min-h-screen bg-surface-canvas text-on-surface">
       <header className="sticky top-0 z-30 flex min-h-16 items-center justify-between border-b border-border-subtle bg-surface-card/95 px-gutter backdrop-blur sm:px-gutter-desktop">
-        <Link href="/" className="flex shrink-0 items-center gap-space-sm rounded-md focus-visible:outline-2 focus-visible:outline-primary">
-          <span className="flex size-8 items-center justify-center rounded-md bg-gradient-to-br from-primary-container to-primary text-lg font-bold text-on-primary">K</span>
-          <span className="font-heading text-headline-sm">kontaktu</span>
+        <Link href="/" className="flex shrink-0 items-center gap-space-sm rounded-md focus-visible:outline-2 focus-visible:outline-primary" aria-label="Kontaktu AI">
+          <Image
+            src="/images/kontaktu-ai-logo.svg"
+            alt="Kontaktu AI"
+            width={132}
+            height={37}
+            priority
+            className="h-auto w-[132px]"
+          />
           <span className="hidden rounded border border-primary-fixed bg-primary-fixed px-1.5 py-0.5 text-label-sm text-primary sm:inline">CRM</span>
         </Link>
         <div aria-label="Usuario actual" className="flex size-8 items-center justify-center rounded-full bg-surface-subtle text-label-md">DM</div>
