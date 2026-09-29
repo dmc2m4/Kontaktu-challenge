@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { fetchContactDetail, fetchContactList } from "@/lib/contacts/contact-client";
 import type { ContactDetail, ContactListItem } from "@/lib/contacts/contact-types";
+import ContactDetailSkeleton from "./contact-detail-skeleton";
 import ContactDetailView from "./contact-detail-view";
 
 type DetailState =
@@ -32,24 +33,7 @@ export default function ContactDetailClient({ contactId }: { contactId: string }
     return () => controller.abort();
   }, [attempt, contactId]);
 
-  if (state.status === "loading") {
-    return (
-      <main aria-live="polite" className="min-h-screen bg-surface-canvas p-gutter sm:p-gutter-desktop">
-        <div className="mx-auto max-w-[1600px] space-y-space-lg">
-          <div className="h-16 animate-pulse rounded-xl bg-surface-card" />
-          <div className="grid gap-space-lg lg:grid-cols-[20rem_minmax(0,1fr)]">
-            <div className="hidden h-[calc(100vh-8rem)] animate-pulse rounded-xl bg-surface-card lg:block" />
-            <div className="space-y-space-lg">
-              <div className="h-48 animate-pulse rounded-xl bg-surface-card" />
-              <div className="h-96 animate-pulse rounded-xl bg-surface-card" />
-            </div>
-          </div>
-        </div>
-        <span className="sr-only">Cargando ficha de contacto</span>
-      </main>
-    );
-  }
-
+  if (state.status === "loading") {\n    return <ContactDetailSkeleton />;\n  }
   if (state.status === "not-found") {
     return (
       <main className="flex min-h-screen items-center justify-center bg-surface-canvas p-gutter">
