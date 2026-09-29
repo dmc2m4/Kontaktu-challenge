@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ContactDetail, ContactListItem } from "@/lib/contacts/contact-types";
 import BeforeCallSummary from "./before-call-summary";
@@ -49,9 +50,15 @@ function ContactTopBar({ contact }: { contact: ContactDetail }) {
   return (
     <header className="sticky top-0 z-30 flex min-h-16 items-center justify-between border-b border-border-subtle bg-surface-card/95 px-gutter backdrop-blur sm:px-gutter-desktop">
       <div className="flex min-w-0 items-center gap-space-lg">
-        <Link href="/" className="flex shrink-0 items-center gap-space-sm rounded-md focus-visible:outline-2 focus-visible:outline-primary">
-          <span className="flex size-8 items-center justify-center rounded-md bg-gradient-to-br from-primary-container to-primary text-lg font-bold text-on-primary">K</span>
-          <span className="font-heading text-headline-sm">kontaktu</span>
+        <Link href="/" className="flex shrink-0 items-center gap-space-sm rounded-md focus-visible:outline-2 focus-visible:outline-primary" aria-label="Kontaktu AI">
+          <Image
+            src="/images/kontaktu-ai-logo.svg"
+            alt="Kontaktu AI"
+            width={132}
+            height={37}
+            priority
+            className="h-auto w-[132px]"
+          />
           <span className="hidden rounded border border-primary-fixed bg-primary-fixed px-1.5 py-0.5 text-label-sm text-primary sm:inline">CRM</span>
         </Link>
         <nav aria-label="Breadcrumb" className="hidden min-w-0 items-center gap-space-sm border-l border-border-subtle pl-space-lg text-label-sm text-on-surface-variant md:flex">
