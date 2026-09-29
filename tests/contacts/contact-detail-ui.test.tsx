@@ -18,7 +18,7 @@ describe("contact action status", () => {
     render(<ContactActionStatus contact={detail} />);
 
     expect(screen.getByText("Bloqueadas")).toBeTruthy();
-    expect(screen.getByText("Call consent is not recorded.")).toBeTruthy();
+    expect(screen.getByText("No consta el consentimiento para llamar.")).toBeTruthy();
     expect(screen.queryByRole("link")).toBeNull();
   });
 });
