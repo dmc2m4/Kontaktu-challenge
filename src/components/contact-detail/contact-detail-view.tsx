@@ -6,6 +6,9 @@ import ContactHeader from "./contact-header";
 import ContactRestrictions from "./contact-restrictions";
 import DataHealth from "./data-health";
 import InteractionTimeline from "./interaction-timeline";
+
+export { default as ContactActionStatus } from "./contact-restrictions";
+export { default as InteractionTimeline } from "./interaction-timeline";
 import QualificationSection from "./qualification-section";
 
 function ContactSidebar({ contacts, activeId }: { contacts: ContactListItem[]; activeId: string }) {
