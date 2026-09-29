@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { fetchContactList } from "@/lib/contacts/contact-client";
 import { formatContactDate, formatContactTime } from "@/lib/contacts/date-time";
 import type { ContactListItem } from "@/lib/contacts/contact-types";
@@ -14,7 +14,7 @@ function Badge({
   children,
   tone = "neutral",
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   tone?: "neutral" | "orange" | "teal" | "blue" | "warning";
 }) {
   const styles = {
