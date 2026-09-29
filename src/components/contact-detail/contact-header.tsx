@@ -1,6 +1,7 @@
+import type { ReactNode } from "react";
 import type { ContactDetail } from "@/lib/contacts/contact-types";
 
-function Badge({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function Badge({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-label-sm ${className}`}>{children}</span>;
 }
 
