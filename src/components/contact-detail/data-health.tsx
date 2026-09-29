@@ -1,6 +1,7 @@
+import type { ReactNode } from "react";
 import type { ContactDetail } from "@/lib/contacts/contact-types";
 
-function Badge({ children, complete }: { children: React.ReactNode; complete: boolean }) {
+function Badge({ children, complete }: { children: ReactNode; complete: boolean }) {
   return <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-label-sm ${complete ? "border-secondary-fixed bg-secondary-fixed/45 text-on-secondary-fixed-variant" : "border-warning-amber/30 bg-warning-amber-subtle"}`}>{children}</span>;
 }
 
