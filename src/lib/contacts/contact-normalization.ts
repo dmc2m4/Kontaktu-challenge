@@ -78,7 +78,7 @@ function getInitials(value: string | null): string | null {
   return letters.slice(0, 2).join("").toLocaleUpperCase("es-ES") || null;
 }
 
-function normalizeSource(value: unknown, kind: "lead" | "interaction" = "lead"): NormalizedSource {
+function normalizeSource(value: unknown): NormalizedSource {
   const originalValue = getString(value);
   const normalized = originalValue?.trim().toUpperCase() ?? "";
   const labels: Record<string, string> = {
@@ -367,7 +367,7 @@ function normalizeInteraction(value: unknown): NormalizedInteraction {
 
   return {
     id: getString(interaction?.id) ?? null,
-    channel: normalizeSource(interaction?.channel, "interaction"),
+    channel: normalizeSource(interaction?.channel),
     direction: getString(interaction?.direction),
     createdAt: parseContactDate(interaction?.created_at),
     content,
