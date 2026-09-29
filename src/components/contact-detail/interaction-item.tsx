@@ -3,7 +3,7 @@ import type { NormalizedInteraction } from "@/lib/contacts/contact-types";
 
 export default function InteractionItem({ interaction }: { interaction: NormalizedInteraction }) {
   const time = formatContactTime(interaction.createdAt);
-  const isVoice = interaction.channel.label === "Phone call";
+  const isVoice = ["VOICE_CALL", "VOICE", "VOZ", "LLAMADA"].includes(interaction.channel.originalValue?.trim().toUpperCase() ?? "");
   return (
     <li className="border-t border-border-subtle py-space-md">
       <div className="flex gap-space-sm">
