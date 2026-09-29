@@ -34,7 +34,8 @@ export default function ContactDetailClient({ contactId }: { contactId: string }
   }, [attempt, contactId]);
 
   if (state.status === "loading") {
-    return <ContactDetailSkeleton />;\n  }
+    return <ContactDetailSkeleton />;
+  }
   if (state.status === "not-found") {
     return (
       <main className="flex min-h-screen items-center justify-center bg-surface-canvas p-gutter">
