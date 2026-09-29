@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { formatContactDate } from "@/lib/contacts/date-time";
 import type { ContactDetail } from "@/lib/contacts/contact-types";
 
 function Badge({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -22,7 +23,7 @@ export default function ContactHeader({ contact }: { contact: ContactDetail }) {
             <div className="mt-space-sm flex flex-wrap gap-x-space-lg gap-y-space-xs text-body-sm text-on-surface-variant">
               {contact.phone.displayValue && <span className="font-medium">☎ {contact.phone.displayValue}</span>}
               {contact.email.displayValue && <span className="break-all">✉ {contact.email.displayValue}</span>}
-              {created && <span>Creado el {created.displayValue}</span>}
+              {formatContactDate(created) && <span>Creado el {formatContactDate(created)}</span>}
             </div>
             {(contact.phone.malformed || contact.email.malformed) && <p className="mt-space-sm text-label-sm text-danger-rose">El dato de contacto conserva su valor original, pero no es utilizable.</p>}
           </div>
