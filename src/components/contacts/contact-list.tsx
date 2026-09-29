@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import { fetchContactList } from "@/lib/contacts/contact-client";
