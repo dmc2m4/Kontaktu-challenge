@@ -378,6 +378,7 @@ function normalizeBasics(contact: RawContact, exportOrganizationId: string | nul
     latestInteraction: latest
       ? {
           channel: latest.channel,
+          direction: latest.direction,
           createdAt: latest.createdAt,
           summary: summary ? `${summary.slice(0, 137)}${summary.length > 140 ? "…" : ""}` : null,
         }
