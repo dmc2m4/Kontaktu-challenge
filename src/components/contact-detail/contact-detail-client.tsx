@@ -33,7 +33,8 @@ export default function ContactDetailClient({ contactId }: { contactId: string }
     return () => controller.abort();
   }, [attempt, contactId]);
 
-  if (state.status === "loading") {\n    return <ContactDetailSkeleton />;\n  }
+  if (state.status === "loading") {
+    return <ContactDetailSkeleton />;\n  }
   if (state.status === "not-found") {
     return (
       <main className="flex min-h-screen items-center justify-center bg-surface-canvas p-gutter">
