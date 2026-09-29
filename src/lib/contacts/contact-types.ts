@@ -96,6 +96,7 @@ export interface ContactListItem {
   createdAt: ParsedContactDate;
   latestInteraction: {
     channel: NormalizedSource;
+    direction: string | null;
     createdAt: ParsedContactDate;
     summary: string | null;
   } | null;
