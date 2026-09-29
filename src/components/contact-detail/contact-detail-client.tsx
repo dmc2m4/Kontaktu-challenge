@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchContactDetail, fetchContactList } from "@/lib/contacts/contact-client";
 import type { ContactDetail, ContactListItem } from "@/lib/contacts/contact-types";
@@ -42,7 +43,7 @@ export default function ContactDetailClient({ contactId }: { contactId: string }
         <section aria-live="polite" className="w-full max-w-xl rounded-xl border border-border-subtle bg-surface-card p-space-xl shadow-card">
           <p className="text-label-sm uppercase text-on-surface-variant">Contacto</p>
           <h1 className="mt-space-sm font-heading text-headline-md">No encontramos este contacto</h1>
-          <a className="mt-space-lg inline-flex min-h-11 items-center rounded-md border border-border-subtle px-space-lg text-label-md hover:bg-surface-subtle focus-visible:outline-2 focus-visible:outline-primary" href="/">Volver al listado</a>
+          <Link className="mt-space-lg inline-flex min-h-11 items-center rounded-md border border-border-subtle px-space-lg text-label-md hover:bg-surface-subtle focus-visible:outline-2 focus-visible:outline-primary" href="/">Volver al listado</Link>
         </section>
       </main>
     );
