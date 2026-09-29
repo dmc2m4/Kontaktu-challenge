@@ -12,7 +12,7 @@ describe("contact restrictions", () => {
 
     expect(restrictions.callConsent).toBe("unknown");
     expect(restrictions.callAllowed).toBe(false);
-    expect(restrictions.callReasons).toContain("Call consent is not recorded.");
+    expect(restrictions.callReasons).toContain("No consta el consentimiento para llamar.");
     expect(restrictions.whatsappAvailable).toBe(true);
   });
 
@@ -90,10 +90,10 @@ describe("before-call recommendation", () => {
     const restrictions = deriveContactRestrictions(contact({ phone: "+34 655 12 34 56" }), true);
 
     expect(buildRecommendation(restrictions, true, true)).toBe(
-      "Prioritize the requested human follow-up.",
+      "Prioriza el seguimiento humano solicitado.",
     );
     expect(buildRecommendation(restrictions, false, true)).toBe(
-      "Confirm call consent before calling.",
+      "Confirma el consentimiento para llamar antes de realizar la llamada.",
     );
   });
 });

@@ -61,21 +61,21 @@ export function deriveContactRestrictions(
   const callConsent = getConsentStatus(contact);
   const preferences: string[] = [];
 
-  if (noCallPreference) preferences.push("No phone calls requested");
+  if (noCallPreference) preferences.push("No se solicitaron llamadas telefónicas");
   if (recordedTexts.some((text) => /\bsolo por email|únicamente por email|email only\b/i.test(text))) {
-    preferences.push("Email only");
+    preferences.push("Solo correo electrónico");
   }
-  if (whatsappOptOut) preferences.push("No WhatsApp messages requested");
+  if (whatsappOptOut) preferences.push("No se solicitaron mensajes por WhatsApp");
 
   const callReasons: string[] = [];
-  if (!phoneUsable) callReasons.push("A usable phone number is not available.");
-  if (callConsent === "unknown") callReasons.push("Call consent is not recorded.");
-  if (callConsent === "denied") callReasons.push("Call consent was denied.");
-  if (noCallPreference) callReasons.push("The contact explicitly requested no phone calls.");
+  if (!phoneUsable) callReasons.push("No hay un número de teléfono utilizable.");
+  if (callConsent === "unknown") callReasons.push("No consta el consentimiento para llamar.");
+  if (callConsent === "denied") callReasons.push("El consentimiento para llamar fue denegado.");
+  if (noCallPreference) callReasons.push("El contacto solicitó explícitamente no recibir llamadas telefónicas.");
 
   const whatsappReasons: string[] = [];
-  if (!phoneUsable) whatsappReasons.push("A usable phone number is not available.");
-  if (whatsappOptOut) whatsappReasons.push("The contact explicitly opted out of WhatsApp.");
+  if (!phoneUsable) whatsappReasons.push("No hay un número de teléfono utilizable.");
+  if (whatsappOptOut) whatsappReasons.push("El contacto rechazó explícitamente los mensajes por WhatsApp.");
 
   return {
     callConsent,
@@ -94,9 +94,9 @@ export function buildRecommendation(
   handoffRequested: boolean,
   hasRecentInboundInteraction: boolean,
 ): string | null {
-  if (handoffRequested) return "Prioritize the requested human follow-up.";
-  if (restrictions.noCallPreference) return "Respect the recorded contact preference.";
-  if (restrictions.callConsent !== "granted") return "Confirm call consent before calling.";
-  if (hasRecentInboundInteraction) return "Review the latest incoming interaction before responding.";
+  if (handoffRequested) return "Prioriza el seguimiento humano solicitado.";
+  if (restrictions.noCallPreference) return "Respeta la preferencia de contacto registrada.";
+  if (restrictions.callConsent !== "granted") return "Confirma el consentimiento para llamar antes de realizar la llamada.";
+  if (hasRecentInboundInteraction) return "Revisa la última interacción entrante antes de responder.";
   return null;
 }

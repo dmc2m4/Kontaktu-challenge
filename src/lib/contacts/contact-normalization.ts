@@ -78,29 +78,29 @@ function getInitials(value: string | null): string | null {
   return letters.slice(0, 2).join("").toLocaleUpperCase("es-ES") || null;
 }
 
-function normalizeSource(value: unknown, kind: "lead" | "interaction" = "lead"): NormalizedSource {
+function normalizeSource(value: unknown): NormalizedSource {
   const originalValue = getString(value);
   const normalized = originalValue?.trim().toUpperCase() ?? "";
   const labels: Record<string, string> = {
-    VOICE_CALL: "Phone call",
-    VOICE: "Phone call",
-    VOZ: "Phone call",
-    LLAMADA: "Phone call",
+    VOICE_CALL: "Llamada telefónica",
+    VOICE: "Llamada telefónica",
+    VOZ: "Llamada telefónica",
+    LLAMADA: "Llamada telefónica",
     WHATSAPP: "WhatsApp",
-    WEBSITE: "Website",
-    WEB_FORM: "Web form",
+    WEBSITE: "Sitio web",
+    WEB_FORM: "Formulario web",
     META_LEAD_ADS: "Meta Lead Ads",
-    WITEI: "Witei import",
-    CRM: "CRM import",
-    EMAIL: "Email",
+    WITEI: "Importación de Witei",
+    CRM: "Importación de CRM",
+    EMAIL: "Correo electrónico",
   };
 
   const label = labels[normalized];
   if (label) return { originalValue, label, recognized: true };
-  if (!originalValue) return { originalValue: null, label: "Source unavailable", recognized: false };
+  if (!originalValue) return { originalValue: null, label: "Origen no disponible", recognized: false };
   return {
     originalValue,
-    label: `Unrecognized ${kind === "lead" ? "source" : "channel"}: ${originalValue}`,
+    label: `Origen no reconocido: ${originalValue}`,
     recognized: false,
   };
 }
@@ -124,8 +124,37 @@ function normalizeGroup(group: string): QualificationGroup {
   return "unclassified";
 }
 
+const FIELD_LABELS: Record<string, string> = {
+  zones: "Zonas",
+  budget: "Presupuesto",
+  budget_max: "Presupuesto máximo",
+  budget_min: "Presupuesto mínimo",
+  bedrooms: "Dormitorios",
+  bedrooms_min: "Dormitorios mínimos",
+  bedrooms_max: "Dormitorios máximos",
+  financing: "Financiación",
+  terrace: "Terraza",
+  has_pets: "Mascotas",
+  urgency: "Urgencia",
+  floor_pref: "Preferencia de planta",
+  elevator: "Ascensor",
+  orientation: "Orientación",
+  garage: "Garaje",
+  accesibilidad_movilidad_reducida: "Accesibilidad / movilidad reducida",
+  net_income: "Ingresos netos",
+  income_verified: "Ingresos verificados",
+  operation: "Operación",
+  qualification_data: "Datos de cualificación",
+  qualification: "Cualificación",
+  interest_preferences: "Preferencias de interés",
+};
+
 function displayKey(key: string): string {
-  return key
+  const normalizedKey = key.trim();
+  const knownLabel = FIELD_LABELS[normalizedKey];
+  if (knownLabel) return knownLabel;
+
+  return normalizedKey
     .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
     .replace(/[_-]+/g, " ")
     .replace(/\s+/g, " ")
@@ -338,7 +367,7 @@ function normalizeInteraction(value: unknown): NormalizedInteraction {
 
   return {
     id: getString(interaction?.id) ?? null,
-    channel: normalizeSource(interaction?.channel, "interaction"),
+    channel: normalizeSource(interaction?.channel),
     direction: getString(interaction?.direction),
     createdAt: parseContactDate(interaction?.created_at),
     content,
@@ -378,6 +407,7 @@ function normalizeBasics(contact: RawContact, exportOrganizationId: string | nul
     latestInteraction: latest
       ? {
           channel: latest.channel,
+          direction: latest.direction,
           createdAt: latest.createdAt,
           summary: summary ? `${summary.slice(0, 137)}${summary.length > 140 ? "…" : ""}` : null,
         }
@@ -465,12 +495,23 @@ export function normalizeContactDetail(
 }
 
 export function formatQualificationValue(value: unknown, hasValue: boolean): string {
-  if (!hasValue) return "Value not provided";
-  if (value === null) return "Null value";
-  if (typeof value === "boolean") return value ? "Yes" : "No";
-  if (typeof value === "string") return value.length > 0 ? value : "Empty string";
+  if (!hasValue) return "Valor no proporcionado";
+  if (value === null) return "Valor nulo";
+  if (typeof value === "boolean") return value ? "Sí" : "No";
+  if (typeof value === "string") return value.length > 0 ? value : "Valor vacío";
   if (typeof value === "number") return new Intl.NumberFormat("es-ES").format(value);
-  return JSON.stringify(value, null, 2) ?? String(value);
+
+  if (Array.isArray(value)) {
+    return value.map((item) => formatQualificationValue(item, true)).join(", ");
+  }
+
+  if (isRecord(value)) {
+    return Object.entries(value)
+      .map(([key, entry]) => displayKey(key) + ": " + formatQualificationValue(entry, true))
+      .join(" · ");
+  }
+
+  return String(value);
 }
 
 export function formatSourceTimestamp(value: QualificationFact["sourceTimestamp"]): string | null {

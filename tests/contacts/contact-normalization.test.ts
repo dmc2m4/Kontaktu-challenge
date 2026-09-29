@@ -25,7 +25,7 @@ describe("contact identity and source normalization", () => {
 
     expect(normalized.displayName).toBe("José Luis Martín Cabrera");
     expect(normalized.initials).toBe("JC");
-    expect(normalized.source.label).toBe("Phone call");
+    expect(normalized.source.label).toBe("Llamada telefónica");
     expect(normalized.phone.displayValue).toBe("0034612889034");
   });
 
@@ -122,7 +122,7 @@ describe("qualification normalization", () => {
     expect(facts.find((fact) => fact.key === "zones")?.status).toBe("null");
     expect(facts.find((fact) => fact.key === "budget")?.status).toBe("empty");
     expect(facts.find((fact) => fact.key === "custom_fact")?.originalValue).toEqual({ label: "raw" });
-    expect(formatQualificationValue(["a", 2], true)).toContain('"a"');
+    expect(formatQualificationValue(["a", 2], true)).toBe("a, 2");
     expect(formatQualificationValue(false, true)).toBe("No");
   });
 
