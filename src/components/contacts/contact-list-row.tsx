@@ -1,8 +1,9 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { formatContactDate, formatContactTime } from "@/lib/contacts/date-time";
 import type { ContactListItem } from "@/lib/contacts/contact-types";
 
-function Badge({ children, tone = "neutral" }: { children: React.ReactNode; tone?: "neutral" | "blue" | "warning" }) {
+function Badge({ children, tone = "neutral" }: { children: ReactNode; tone?: "neutral" | "blue" | "warning" }) {
   const styles = {
     neutral: "border-border-subtle bg-surface-subtle text-on-surface-variant",
     blue: "border-tertiary-fixed bg-tertiary-fixed/50 text-on-tertiary-container",
